@@ -1,0 +1,77 @@
+body {
+    background-color: #f2865f;
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: #ecb9a4;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.content {
+    margin: 20px;
+    text-align: center;
+}
+
+.genre-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Add gap between genre buttons */
+}
+
+.genre {
+    background-color: #FFA07A;
+    padding: 10px;
+    border: 2px solid #FF6347;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1; /* Set equal width for genre buttons */
+}
+
+.genre button {
+    background-color: #ff542e;
+    color: #FFFFFF;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%; /* Set the button width to 100% of the .genre div */
+}
+
+.genre button:hover {
+    background-color: #992a19;
+}
+
+.search-bar {
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 2px solid #ff542e;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="text"]::placeholder {
+    color: #ff542e;
+}
+
+.search-bar button {
+    background-color: #ff542e;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #992a19;
+}
