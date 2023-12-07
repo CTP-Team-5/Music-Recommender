@@ -1,80 +1,25 @@
-body {
-    background-color: #f2865f;
+section.main.st-emotion-cache-uf99v8.ea3mdgi5 {
+    background: linear-gradient(to bottom,#F2865F, #EC7063);
     font-family: 'Arial', sans-serif;
-    color: #fff; /* Change font color of the body text */
+    color: #FFF;
 }
 
-header {
-    background-color: #ecb9a4;
-    color: #FFFFFF;
-    text-align: center;
-    padding: 20px;
+header.st-emotion-cache-1avcm0n.ezrtsby2 {
+    background: linear-gradient(to top, #FC6A4A, #FF5733);
 }
 
-h1 {
-    font-size: 2em;
-}
-
-.content {
-    margin: 20px;
-    text-align: center;
-    color: #fff; 
-}
-
-.genre-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.genre {
-    background-color: #FFA07A;
+div.st-emotion-cache-zt5igj.e1nzilvr4 {
+    border: 5px solid #FF5733;
     padding: 10px;
-    border: 2px solid #FF6347;
-    border-radius: 5px;
-    text-align: center;
-    flex: 1;
-}
-
-.genre button {
-    background-color: #ff542e;
-    color: #FFFFFF;
-    padding: 10px 10px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-.genre button:hover {
-    background-color: #992a19;
-}
-
-.search-bar {
-    margin-top: 20px;
+    border-radius: 50px;
     text-align: center;
 }
 
-input[type="text"] {
-    padding: 10px;
-    border: 2px solid #ff542e;
-    border-radius: 5px;
-    font-size: 16px;
-}
 
-input[type="text"]::placeholder {
-    color: #ff542e;
-}
-
-.search-bar button {
-    background-color: #ff542e;
-    color: #FFFFFF;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-.search-bar button:hover {
-    background-color: #992a19;
+.team {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: #922B21;
 }
