@@ -3,6 +3,7 @@
 ## Table of Contents
 - [About the Project](#about-the-project)
   - [Key Features](#key-features)
+- [Data Source](#data-source)
 - [Getting Started](#getting-started)
   - [Setup](#setup)
 - [Usage](#usage)
@@ -18,10 +19,15 @@ TextTune is a Python-based application designed to merge, process, and analyze t
 - **Streamlit Interface:** A dynamic and responsive web app interface for easy data interaction.
 - **Custom CSS Styling:** Enhanced visual appeal and user experience with custom CSS styles.
 
+## Data Source
+The dataset used in this project is the Spotify Million Song Dataset, which was downloaded from Kaggle. It includes a comprehensive collection of song data that is essential for our analysis and recommendations. This was NOT uploaded to github due to the large file size, and was therefore split.
+
+You can access and download the dataset [here](https://www.kaggle.com/datasets/notshrirang/spotify-million-song-dataset) for reference or to replicate the analysis.
+
 ## Getting Started
 To get started with TextTune, you'll need to set up your Python environment and install necessary libraries like Streamlit, Pandas, and NLTK.
 
-1. **Clone the repository:** Download the project files to your local machine.
+1. **Clone the repository:** Download the project files from [our GitHub repository](git@github.com:CTP-Team-5/Music-Recommender.git) to your local machine.
 2. **Install Dependencies:** Run `pip install -r requirements.txt` to install required Python packages.
 
 ## Setup
@@ -32,3 +38,8 @@ To get started with TextTune, you'll need to set up your Python environment and 
 - **Data Loading:** Use the Streamlit interface to upload and merge your CSV files.
 - **Data Analysis:** Apply NLP techniques for text analysis and view the results directly in the app.
 - **Visualization:** Interact with the visual representation of your data analysis for deeper insights.
+
+## Contact
+- Methila Deb - [@LinkedIn](https://www.linkedin.com/in/methila-deb-130147202/)
+- Alina Alizai - [@LinkedIn](https://www.linkedin.com/in/alina-alizai/)
+-Project Link: https://github.com/CTP-Team-5/Music-Recommender
