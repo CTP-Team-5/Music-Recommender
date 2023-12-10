@@ -39,6 +39,10 @@ Check out this demo video for a quick overview:
 [![Watch the video](https://cdn.loom.com/sessions/thumbnails/253a154b8d164fdab4fa6e78349dcc99-with-play.gif)](https://www.loom.com/share/253a154b8d164fdab4fa6e78349dcc99?sid=129f629d-84a8-4401-ba91-208a09f832a0)
 
 ## Contact
-- Methila Deb - [@LinkedIn](https://www.linkedin.com/in/methila-deb-130147202/)
-- Alina Alizai - [@LinkedIn](https://www.linkedin.com/in/alina-alizai/)
+- Methila Deb 
+  - [@LinkedIn](https://www.linkedin.com/in/methila-deb-130147202/) 
+  - [@Github](https://github.com/methiladeb)
+- Alina Alizai 
+  - [@LinkedIn](https://www.linkedin.com/in/alina-alizai/) 
+  - [@Github](https://github.com/Alina1z)
 - [Project Link](https://github.com/CTP-Team-5/Music-Recommender)
