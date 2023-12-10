@@ -6,7 +6,6 @@
 - [Data Source](#data-source)
 - [Getting Started](#getting-started)
   - [Setup](#setup)
-- [Usage](#usage)
 - [Demo](#demo)
 - [Contact](#contact)
 
@@ -34,12 +33,13 @@ To get started with TextTune, you'll need to set up your Python environment and 
 1. **Launch the Streamlit App:** Execute `streamlit run app.py` in your terminal to start the web application.
 2. **Access the Web Interface:** Open the provided local URL in your web browser to interact with the application.
 
-## Usage
-- **Data Loading:** Use the Streamlit interface to upload and merge your CSV files.
-- **Data Analysis:** Apply NLP techniques for text analysis and view the results directly in the app.
-- **Visualization:** Interact with the visual representation of your data analysis for deeper insights.
+## Demo
+Check out this demo video for a quick overview:
+[![Watch the video](https://cdn.loom.com/sessions/thumbnails/253a154b8d164fdab4fa6e78349dcc99-with-play.gif)](https://www.loom.com/share/253a154b8d164fdab4fa6e78349dcc99?sid=129f629d-84a8-4401-ba91-208a09f832a0)
 
 ## Contact
 - Methila Deb - [@LinkedIn](https://www.linkedin.com/in/methila-deb-130147202/)
+
 - Alina Alizai - [@LinkedIn](https://www.linkedin.com/in/alina-alizai/)
+
 -Project Link: https://github.com/CTP-Team-5/Music-Recommender
