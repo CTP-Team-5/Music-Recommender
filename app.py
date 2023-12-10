@@ -10,12 +10,12 @@ with open('styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Open and read the first CSV file
-with open('archive (1)/output_file1.csv', 'r', newline='') as file1:
+with open('split_csv/output_file1.csv', 'r', newline='') as file1:
     reader1 = csv.reader(file1)
     data1 = list(reader1)
 
 # Open and read the second CSV file
-with open('archive (1)/output_file2.csv', 'r', newline='') as file2:
+with open('split_csv/output_file2.csv', 'r', newline='') as file2:
     reader2 = csv.reader(file2)
     data2 = list(reader2)
 
@@ -34,8 +34,9 @@ music = pd.read_csv('merged_data.csv')
 similarity = pickle.load(open('similarity.pkl', 'rb'))
 
 def find_similar_artists(artist_name):
-    # Find all songs by the given artist
+    # Find all songs by the given artist within the first 5000 indices
     artist_songs_indices = music[music['artist'] == artist_name].index.tolist()
+    artist_songs_indices = [index for index in artist_songs_indices if index < 5000]
 
     # Dictionary to keep sum of similarities for each artist
     artist_similarity = {}
@@ -43,6 +44,8 @@ def find_similar_artists(artist_name):
     # Calculate similarity with other songs
     for index in artist_songs_indices:
         for i, similarity_score in enumerate(similarity[index]):
+            if i >= 5000:  # Skip artists beyond the 5000 index
+                continue
             other_artist = music.iloc[i]['artist']
             if other_artist != artist_name:
                 if other_artist in artist_similarity:
@@ -55,6 +58,7 @@ def find_similar_artists(artist_name):
 
     # Return top N similar artists
     return similar_artists[:10]
+
 
 # Function to recommend songs
 def recommend(song):
@@ -73,7 +77,7 @@ def recommend(song):
         return []
 
 # Streamlit app interface
-st.header('TechnoMelody Music Recommender')
+st.header('TextTune Music Recommender')
 st.write('This is a music recommendation system based on the lyrics.')
 
 # Sidebar for choosing recommendation type
