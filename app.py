@@ -9,26 +9,8 @@ import random
 with open('styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# Open and read data from the first CSV file
-with open('split_csv/output_file1.csv', 'r', newline='') as file1:
-    reader1 = csv.reader(file1)
-    data1 = list(reader1)
-
-# Open and read data from the second CSV file
-with open('split_csv/output_file2.csv', 'r', newline='') as file2:
-    reader2 = csv.reader(file2)
-    data2 = list(reader2)
-
-# Combine data from both CSV files into a single list
-combined_data = data1 + data2
-
-# Write the combined data to a new CSV file
-with open('merged_data.csv', 'w', newline='') as output_file:
-    writer = csv.writer(output_file)
-    writer.writerows(combined_data)
-
-# Load the combined data into a pandas DataFrame
-music = pd.read_csv('merged_data.csv')
+# Load the data into a pandas DataFrame
+music = pd.read_csv('spotify_mil_song_dataset.csv')
 
 # Load a precomputed similarity matrix from a file
 similarity = pickle.load(open('similarity.pkl', 'rb'))
