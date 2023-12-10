@@ -39,7 +39,5 @@ Check out this demo video for a quick overview:
 
 ## Contact
 - Methila Deb - [@LinkedIn](https://www.linkedin.com/in/methila-deb-130147202/)
-
 - Alina Alizai - [@LinkedIn](https://www.linkedin.com/in/alina-alizai/)
-
--Project Link: https://github.com/CTP-Team-5/Music-Recommender
+- [Project Link](https://github.com/CTP-Team-5/Music-Recommender)
