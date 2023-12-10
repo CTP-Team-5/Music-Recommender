@@ -28,7 +28,7 @@ To get started with TextTune, you'll need to set up your Python environment and 
 
 1. **Clone the repository:** Download the project files from [our GitHub repository](git@github.com:CTP-Team-5/Music-Recommender.git) to your local machine.
 2. **Install Dependencies:** Run `pip install -r requirements.txt` to install required Python packages.
-3. You must run the model training in jupyter notebook first so that the appropriate files can be created before moving into the **setup** steps.
+3. You must run the model training in jupyter notebook first.
 
 ## Setup
 1. **Launch the Streamlit App:** Execute `streamlit run app.py` in your terminal to start the web application.
