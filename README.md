@@ -19,7 +19,7 @@ TextTune is a Python-based application designed to merge, process, and analyze t
 - **Custom CSS Styling:** Enhanced visual appeal and user experience with custom CSS styles.
 
 ## Data Source
-The dataset used in this project is the Spotify Million Song Dataset, which was downloaded from Kaggle. It includes a comprehensive collection of song data that is essential for our analysis and recommendations. This was NOT uploaded to github due to the large file size, and was therefore split.
+The dataset used in this project is the Spotify Million Song Dataset, which was downloaded from Kaggle. It includes a comprehensive collection of song data that is essential for our analysis and recommendations. This csv was split before pushing to github.
 
 You can access and download the dataset [here](https://www.kaggle.com/datasets/notshrirang/spotify-million-song-dataset) for reference or to replicate the analysis.
 
@@ -28,6 +28,7 @@ To get started with TextTune, you'll need to set up your Python environment and 
 
 1. **Clone the repository:** Download the project files from [our GitHub repository](git@github.com:CTP-Team-5/Music-Recommender.git) to your local machine.
 2. **Install Dependencies:** Run `pip install -r requirements.txt` to install required Python packages.
+3. You must run the model training in jupyter notebook first so that the appropriate files can be created before moving into the **setup** steps.
 
 ## Setup
 1. **Launch the Streamlit App:** Execute `streamlit run app.py` in your terminal to start the web application.
