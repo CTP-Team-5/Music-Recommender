@@ -5,21 +5,21 @@ import time
 import csv
 import random
 
-# Load CSS styles
+# Load CSS styles from a file and apply them to the Streamlit app
 with open('styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# Open and read the first CSV file
+# Open and read data from the first CSV file
 with open('split_csv/output_file1.csv', 'r', newline='') as file1:
     reader1 = csv.reader(file1)
     data1 = list(reader1)
 
-# Open and read the second CSV file
+# Open and read data from the second CSV file
 with open('split_csv/output_file2.csv', 'r', newline='') as file2:
     reader2 = csv.reader(file2)
     data2 = list(reader2)
 
-# Combine the data from both files
+# Combine data from both CSV files into a single list
 combined_data = data1 + data2
 
 # Write the combined data to a new CSV file
@@ -27,65 +27,82 @@ with open('merged_data.csv', 'w', newline='') as output_file:
     writer = csv.writer(output_file)
     writer.writerows(combined_data)
 
-# Load the combined data into a DataFrame
+# Load the combined data into a pandas DataFrame
 music = pd.read_csv('merged_data.csv')
 
-# Load the similarity matrix
+# Load a precomputed similarity matrix from a file
 similarity = pickle.load(open('similarity.pkl', 'rb'))
 
+# This function finds artists similar to the given artist based on a similarity matrix
 def find_similar_artists(artist_name):
-    # Find all songs by the given artist within the first 5000 indices
+    # Find indices of songs by the given artist within the first 5000 entries of the music DataFrame
     artist_songs_indices = music[music['artist'] == artist_name].index.tolist()
     artist_songs_indices = [index for index in artist_songs_indices if index < 5000]
 
-    # Dictionary to keep sum of similarities for each artist
+    # Initialize a dictionary to keep track of similarity scores for each artist
     artist_similarity = {}
 
-    # Calculate similarity with other songs
+    # Loop over each song index of the given artist
     for index in artist_songs_indices:
+
+        # Iterate over the similarity scores of the song with other songs
         for i, similarity_score in enumerate(similarity[index]):
-            if i >= 5000:  # Skip artists beyond the 5000 index
+
+            # Skip processing for indices beyond 5000
+            if i >= 5000: 
                 continue
             other_artist = music.iloc[i]['artist']
+
+            # Accumulate similarity scores for artists other than the given artist
             if other_artist != artist_name:
                 if other_artist in artist_similarity:
                     artist_similarity[other_artist] += similarity_score
                 else:
                     artist_similarity[other_artist] = similarity_score
 
-    # Sort artists by total similarity
+    # Sort artists based on the total accumulated similarity score in descending order
     similar_artists = sorted(artist_similarity.items(), key=lambda x: x[1], reverse=True)
 
-    # Return top N similar artists
+    # Return top 10 similar artists
     return similar_artists[:10]
 
 
-# Function to recommend songs
+# This function recommends songs based on a given song using the similarity matrix
 def recommend(song):
     try:
+        # Find the index of the given song in the music DataFrame
         index = music[music['song'] == song].index[0]
+
+        # Check if the index is within the bounds of the similarity matrix
         if index >= len(similarity):
             st.error("Error: Song index is out of bounds. Please try another song!")
             return []
 
+        # Calculate distances (similarities) of the given song to all other songs
         distances = sorted(enumerate(similarity[index]), key=lambda x: x[1], reverse=True)
+
+        # Select the top 5 similar songs (excluding the given song itself)
         recommended_music_names = [(music.iloc[i[0]]['song'], music.iloc[i[0]]['artist'], music.iloc[i[0]]['text'][:100]) for i in distances[1:6]]
 
+        # Return the recommended song details
         return recommended_music_names
+    
+    # Handle the case where the song is not found in the DataFrame
     except IndexError:
         st.error("Error: Song not found. Please try a song from the dropdown menu!")
         return []
 
-# Streamlit app interface
+# Streamlit app interface setup
 st.header('TextTune Music Recommender')
 st.write('This is a music recommendation system based on the lyrics.')
 
-# Sidebar for choosing recommendation type
+# Sidebar for selecting recommendation type (song or artist)
 recommendation_type = st.sidebar.radio(
     'Choose your recommendation type',
     ('Song Recommendation', 'Artist Recommendation')
 )
 
+# Handling the user's choice for recommendation type
 if recommendation_type == 'Song Recommendation':
     # Dropdown for song selection
     selected_song = st.selectbox("Select a song", music['song'].unique(), 0)
@@ -111,5 +128,5 @@ elif recommendation_type == 'Artist Recommendation':
         else:
             st.error("No similar artists found.")
 
-# Footer
+# Footer with a copyright notice
 st.markdown('<div class="team">© 2023 TechnoMelody</div>', unsafe_allow_html=True)
