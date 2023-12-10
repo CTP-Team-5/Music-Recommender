@@ -13,7 +13,7 @@ with open('styles.css') as f:
 music = pd.read_csv('spotify_mil_song_dataset.csv')
 
 # Load a precomputed similarity matrix from a file
-similarity = pickle.load(open('similarity.pkl', 'rb'))
+similarity = pickle.load(open('pickle files/similarity.pkl', 'rb'))
 
 # This function finds artists similar to the given artist based on a similarity matrix
 def find_similar_artists(artist_name):
