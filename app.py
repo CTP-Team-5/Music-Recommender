@@ -104,11 +104,16 @@ elif recommendation_type == 'Artist Recommendation':
     if st.button('Show Similar Artists'):
         similar_artists = find_similar_artists(selected_artist)
         if similar_artists:
+            # Normalize the similarity scores
+            max_score = max(similar_artists, key=lambda x: x[1])[1]
+            normalized_artists = [(artist, score / max_score) for artist, score in similar_artists]
+
             st.subheader(f'Artists similar to {selected_artist}')
-            for artist, similarity_score in similar_artists:
-                st.write(f"{artist} (Similarity: {similarity_score:.2f})")
+            for artist, normalized_score in normalized_artists:
+                st.write(f"{artist} (Similarity: {normalized_score:.2f})")
         else:
             st.error("No similar artists found.")
+
 
 # Footer with a copyright notice
 st.markdown('<div class="team">© 2023 TechnoMelody</div>', unsafe_allow_html=True)
