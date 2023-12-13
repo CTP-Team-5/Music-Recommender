@@ -36,7 +36,7 @@ To get started with TextTune, you'll need to set up your Python environment and 
 
 ## Demo
 Check out this demo video for a quick overview:
-[![Watch the video](https://cdn.loom.com/sessions/thumbnails/253a154b8d164fdab4fa6e78349dcc99-with-play.gif)](https://www.loom.com/share/cbfd1d69e7a44d369204a7595004db7d?sid=11167090-d1ef-4389-b446-1e421f855101)
+[![Watch the video](https://cdn.loom.com/sessions/thumbnails/cbfd1d69e7a44d369204a7595004db7d-with-play.gif)](https://www.loom.com/share/cbfd1d69e7a44d369204a7595004db7d?sid=11167090-d1ef-4389-b446-1e421f855101)
 
 ## Contact
 - Methila Deb 
