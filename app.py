@@ -1,90 +1,127 @@
 import pickle
 import streamlit as st
 import pandas as pd
-import time  
 import csv
-import random
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
-# Load CSS styles from a file and apply them to the Streamlit app
+CLIENT_ID = "SPOTIFY_CLIENT_ID"
+CLIENT_SECRET = "SPOTIFY_SECRET_KEY"
+
+# Initialize the Spotify client
+client_credentials_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+# Load CSS styles
 with open('styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# Load the data into a pandas DataFrame
-music = pd.read_csv('spotify_mil_song_dataset.csv')
+# Open and read the first CSV file
+with open('archive (1)/output_file1.csv', 'r', newline='') as file1:
+    reader1 = csv.reader(file1)
+    data1 = list(reader1)
 
-# Load a precomputed similarity matrix from a file
-similarity = pickle.load(open('pickle files/similarity.pkl', 'rb'))
+# Open and read the second CSV file
+with open('archive (1)/output_file2.csv', 'r', newline='') as file2:
+    reader2 = csv.reader(file2)
+    data2 = list(reader2)
 
-# This function finds artists similar to the given artist based on a similarity matrix
+# Combine the data from both files
+combined_data = data1 + data2
+
+# Write the combined data to a new CSV file
+with open('merged_data.csv', 'w', newline='') as output_file:
+    writer = csv.writer(output_file)
+    writer.writerows(combined_data)
+
+# Load the combined data into a DataFrame
+music = pd.read_csv('merged_data.csv')
+
+# Load the similarity matrix
+similarity = pickle.load(open('similarity.pkl', 'rb'))
+
+def get_song_album_cover_url(song_name, artist_name):
+    search_query = f"track:{song_name} artist:{artist_name}"
+    results = sp.search(q=search_query, type="track")
+
+    if results and results["tracks"]["items"]:
+        track = results["tracks"]["items"][0]
+        album_cover_url = track["album"]["images"][0]["url"]
+        return album_cover_url
+    else:
+        return "https://i.postimg.cc/0QNxYz4V/social.png"
+
+def get_artist_image_url(artist_name):
+    results = sp.search(q=f"artist:{artist_name}", type="artist")
+
+    if results and results["artists"]["items"]:
+        artist = results["artists"]["items"][0]
+        if artist["images"]:
+            return artist["images"][0]["url"]
+    return "https://i.postimg.cc/0QNxYz4V/social.png"
+
 def find_similar_artists(artist_name):
-    # Find indices of songs by the given artist within the first 5000 entries of the music DataFrame
+    # Find all songs by the given artist within the first 5000 indices
     artist_songs_indices = music[music['artist'] == artist_name].index.tolist()
     artist_songs_indices = [index for index in artist_songs_indices if index < 5000]
 
-    # Initialize a dictionary to keep track of similarity scores for each artist
+    # Dictionary to keep sum of similarities for each artist
     artist_similarity = {}
 
-    # Loop over each song index of the given artist
+    # Calculate similarity with other songs
     for index in artist_songs_indices:
-
-        # Iterate over the similarity scores of the song with other songs
         for i, similarity_score in enumerate(similarity[index]):
-
-            # Skip processing for indices beyond 5000
-            if i >= 5000: 
+            if i >= 5000:  # Skip artists beyond the 5000 index
                 continue
             other_artist = music.iloc[i]['artist']
-
-            # Accumulate similarity scores for artists other than the given artist
             if other_artist != artist_name:
                 if other_artist in artist_similarity:
                     artist_similarity[other_artist] += similarity_score
                 else:
                     artist_similarity[other_artist] = similarity_score
 
-    # Sort artists based on the total accumulated similarity score in descending order
+    # Sort artists by total similarity
     similar_artists = sorted(artist_similarity.items(), key=lambda x: x[1], reverse=True)
 
-    # Return top 10 similar artists
-    return similar_artists[:10]
+    # Return top N similar artists with their images
+    similar_artists_with_images = [
+        (artist, similarity_score, get_artist_image_url(artist))
+        for artist, similarity_score in similar_artists[:10]
+    ]
 
+    return similar_artists_with_images
 
-# This function recommends songs based on a given song using the similarity matrix
+# Function to recommend songs
 def recommend(song):
     try:
-        # Find the index of the given song in the music DataFrame
         index = music[music['song'] == song].index[0]
-
-        # Check if the index is within the bounds of the similarity matrix
         if index >= len(similarity):
             st.error("Error: Song index is out of bounds. Please try another song!")
             return []
 
-        # Calculate distances (similarities) of the given song to all other songs
         distances = sorted(enumerate(similarity[index]), key=lambda x: x[1], reverse=True)
+        recommended_music = [(music.iloc[i[0]]['song'], music.iloc[i[0]]['artist'], music.iloc[i[0]]['text'][:100]) for i in distances[1:6]]
 
-        # Select the top 5 similar songs (excluding the given song itself)
-        recommended_music_names = [(music.iloc[i[0]]['song'], music.iloc[i[0]]['artist'], music.iloc[i[0]]['text'][:100]) for i in distances[1:6]]
+        recommended_music_with_covers = [
+            (song_name, artist_name, lyrics_snippet, get_song_album_cover_url(song_name, artist_name))
+            for song_name, artist_name, lyrics_snippet in recommended_music
+        ]
 
-        # Return the recommended song details
-        return recommended_music_names
-    
-    # Handle the case where the song is not found in the DataFrame
+        return recommended_music_with_covers
     except IndexError:
         st.error("Error: Song not found. Please try a song from the dropdown menu!")
         return []
 
-# Streamlit app interface setup
+# Streamlit app interface
 st.header('TextTune Music Recommender')
 st.write('This is a music recommendation system based on the lyrics.')
 
-# Sidebar for selecting recommendation type (song or artist)
+# Sidebar for choosing recommendation type
 recommendation_type = st.sidebar.radio(
     'Choose your recommendation type',
     ('Song Recommendation', 'Artist Recommendation')
 )
 
-# Handling the user's choice for recommendation type
 if recommendation_type == 'Song Recommendation':
     # Dropdown for song selection
     selected_song = st.selectbox("Select a song", music['song'].unique(), 0)
@@ -92,28 +129,28 @@ if recommendation_type == 'Song Recommendation':
         recommended_music = recommend(selected_song)
         if recommended_music:
             st.subheader('Recommended Music')
-            for song_name, artist_name, lyrics_snippet in recommended_music:
-                formatted_output = f"**{song_name} by {artist_name}**\n\n**Lyrics:**\n*{lyrics_snippet}*"
-                st.markdown(formatted_output, unsafe_allow_html=True)
+            cols = st.columns(5)
+            for idx, (song_name, artist_name, lyrics_snippet, cover_url) in enumerate(recommended_music):
+                with cols[idx % 5]:
+                    st.image(cover_url, use_column_width=True)
+                    st.text(f"{song_name} by {artist_name}")
+                    st.markdown(f"*{lyrics_snippet}*")
         else:
             st.error("No recommendations available.")
-
 
 elif recommendation_type == 'Artist Recommendation':
     selected_artist = st.selectbox("Select an artist", music['artist'].unique(), 0)
     if st.button('Show Similar Artists'):
         similar_artists = find_similar_artists(selected_artist)
         if similar_artists:
-            # Normalize the similarity scores
-            max_score = max(similar_artists, key=lambda x: x[1])[1]
-            normalized_artists = [(artist, score / max_score) for artist, score in similar_artists]
-
             st.subheader(f'Artists similar to {selected_artist}')
-            for artist, normalized_score in normalized_artists:
-                st.write(f"{artist} (Similarity: {normalized_score:.2f})")
+            cols = st.columns(5)
+            for idx, (artist, similarity_score, image_url) in enumerate(similar_artists):
+                with cols[idx % 5]:
+                    st.image(image_url, use_column_width=True)
+                    st.write(f"{artist} (Similarity: {similarity_score:.2f})")
         else:
             st.error("No similar artists found.")
 
-
-# Footer with a copyright notice
+# Footer
 st.markdown('<div class="team">© 2023 TechnoMelody</div>', unsafe_allow_html=True)
