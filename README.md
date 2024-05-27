@@ -19,7 +19,7 @@ TextTune is a Python-based application designed to merge, process, and analyze t
 - **Custom CSS Styling:** Enhanced visual appeal and user experience with custom CSS styles.
 
 ## Data Source
-The dataset used in this project is the Spotify Million Song Dataset, which was downloaded from Kaggle. It includes a comprehensive collection of song data that is essential for our analysis and recommendations. This csv was split before pushing to github.
+The dataset used in this project is the Spotify Million Song Dataset, which was downloaded from Kaggle. It includes a comprehensive collection of song data that is essential for our analysis and recommendations. 
 
 You can access and download the dataset [here](https://www.kaggle.com/datasets/notshrirang/spotify-million-song-dataset) for reference or to replicate the analysis.
 
@@ -36,7 +36,7 @@ To get started with TextTune, you'll need to set up your Python environment and 
 
 ## Demo
 Check out this demo video for a quick overview:
-[![Watch the video](https://cdn.loom.com/sessions/thumbnails/cbfd1d69e7a44d369204a7595004db7d-with-play.gif)](https://www.loom.com/share/cbfd1d69e7a44d369204a7595004db7d?sid=11167090-d1ef-4389-b446-1e421f855101)
+[![Watch the video](https://cdn.loom.com/sessions/thumbnails/43429c9a4a9b4940bfd1a932cf0f327f-with-play.gif)](https://www.loom.com/share/43429c9a4a9b4940bfd1a932cf0f327f?sid=099d37a1-a370-4894-81a4-dfaae889482e)
 
 ## Contact
 - Methila Deb 
