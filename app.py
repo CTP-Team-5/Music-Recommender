@@ -5,8 +5,8 @@ import csv
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-CLIENT_ID = "SPOTIFY_CLIENT_ID"
-CLIENT_SECRET = "SPOTIFY_SECRET_KEY"
+CLIENT_ID = "603a1be4f7bd40e9989c7173632adc86"
+CLIENT_SECRET = "175698b7ff4b4d4ba31d4773caee53e6"
 
 # Initialize the Spotify client
 client_credentials_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
@@ -16,29 +16,11 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 with open('styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# Open and read the first CSV file
-with open('archive (1)/output_file1.csv', 'r', newline='') as file1:
-    reader1 = csv.reader(file1)
-    data1 = list(reader1)
-
-# Open and read the second CSV file
-with open('archive (1)/output_file2.csv', 'r', newline='') as file2:
-    reader2 = csv.reader(file2)
-    data2 = list(reader2)
-
-# Combine the data from both files
-combined_data = data1 + data2
-
-# Write the combined data to a new CSV file
-with open('merged_data.csv', 'w', newline='') as output_file:
-    writer = csv.writer(output_file)
-    writer.writerows(combined_data)
-
 # Load the combined data into a DataFrame
-music = pd.read_csv('merged_data.csv')
+music = pd.read_csv('spotify_mil_song_dataset.csv')
 
 # Load the similarity matrix
-similarity = pickle.load(open('similarity.pkl', 'rb'))
+similarity = pickle.load(open('pickle files/similarity.pkl', 'rb'))
 
 def get_song_album_cover_url(song_name, artist_name):
     search_query = f"track:{song_name} artist:{artist_name}"
