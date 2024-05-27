@@ -10,7 +10,7 @@
 - [Contact](#contact)
 
 ## About the Project
-TextTune is a Python-based application designed to merge, process, and analyze text data. It leverages Streamlit for a user-friendly interface, allowing users to interact with the data and visualization tools seamlessly. When interacting with the interface, the user is able to receive song recommendations as well as artist recommendations.
+TextTune is a Python-based application designed to merge, process, and analyze text data. It leverages Streamlit for a user-friendly interface, allowing users to interact with the data and visualization tools seamlessly. When interacting with the interface, the user is able to receive song recommendations as well as artist recommendations along with the cover posters from the spotify API. 
 
 ## Key Features
 - **Data Processing:** Ability to read and merge data from multiple CSV files.
@@ -29,6 +29,7 @@ To get started with TextTune, you'll need to set up your Python environment and 
 1. **Clone the repository:** Download the project files from [our GitHub repository](git@github.com:CTP-Team-5/Music-Recommender.git) to your local machine.
 2. **Install Dependencies:** Run `pip install -r requirements.txt` to install required Python packages.
 3. You must run the model training in jupyter notebook first.
+4. Make sure to replace YOUR_SPOTIFY_CLIENT_ID and YOUR_SPOTIFY_SECRET_KEY with your own.
 
 ## Setup
 1. **Launch the Streamlit App:** Execute `streamlit run app.py` in your terminal to start the web application.
